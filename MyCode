@@ -1,0 +1,482 @@
+
+// File Name:	XMLCars; JavaXMLCars
+// Programmer:	Maria Jackson
+// Date:        17/05/2023
+// Description:	This program demonstrates basic use of XML files to keep track
+//              of car-related information for the user
+
+
+// Package, Class, Import, and Memory Requirements
+
+package jXML;
+
+
+import java.io.*;  
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+import javax.xml.parsers.*;   
+import javax.xml.transform.*;   
+import javax.xml.transform.dom.DOMSource;       
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.*;   
+import org.xml.sax.*; 
+
+
+public class JavaXMLCars extends javax.swing.JFrame {
+
+    
+    //Creates new form JavaXMLCars
+    public JavaXMLCars() {
+        initComponents();
+    }
+
+    
+// Global variable that tracks when a file has been created so doubles are not
+// made
+int count = 0;
+    
+       
+    // NetBeans generated code for form design; not to be modified
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        titleLabel = new javax.swing.JLabel();
+        yearTxt = new javax.swing.JTextField();
+        companyTxt = new javax.swing.JTextField();
+        colourTxt = new javax.swing.JTextField();
+        styleTxt = new javax.swing.JTextField();
+        mileageTxt = new javax.swing.JTextField();
+        yearLabel = new javax.swing.JLabel();
+        styleLabel = new javax.swing.JLabel();
+        companyLabel1 = new javax.swing.JLabel();
+        companyLabel2 = new javax.swing.JLabel();
+        companyLabel3 = new javax.swing.JLabel();
+        createBtn = new javax.swing.JButton();
+        updateBtn = new javax.swing.JButton();
+        clearBtn = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(238, 255, 213));
+
+        titleLabel.setFont(new java.awt.Font("Adelle Sans Devanagari", 1, 20)); // NOI18N
+        titleLabel.setText("C A R    I N V E N T O R Y");
+
+        yearTxt.setFont(new java.awt.Font("Adelle Sans Devanagari", 0, 14)); // NOI18N
+
+        companyTxt.setFont(new java.awt.Font("Adelle Sans Devanagari", 0, 14)); // NOI18N
+
+        colourTxt.setFont(new java.awt.Font("Adelle Sans Devanagari", 0, 14)); // NOI18N
+
+        styleTxt.setFont(new java.awt.Font("Adelle Sans Devanagari", 0, 14)); // NOI18N
+
+        mileageTxt.setFont(new java.awt.Font("Adelle Sans Devanagari", 0, 14)); // NOI18N
+
+        yearLabel.setFont(new java.awt.Font("Adelle Sans Devanagari", 0, 16)); // NOI18N
+        yearLabel.setText("Year:");
+
+        styleLabel.setFont(new java.awt.Font("Adelle Sans Devanagari", 0, 16)); // NOI18N
+        styleLabel.setText("Style:");
+
+        companyLabel1.setFont(new java.awt.Font("Adelle Sans Devanagari", 0, 16)); // NOI18N
+        companyLabel1.setText("Colour:");
+
+        companyLabel2.setFont(new java.awt.Font("Adelle Sans Devanagari", 0, 16)); // NOI18N
+        companyLabel2.setText("Company:");
+
+        companyLabel3.setFont(new java.awt.Font("Adelle Sans Devanagari", 0, 16)); // NOI18N
+        companyLabel3.setText("Mileage:");
+
+        createBtn.setFont(new java.awt.Font("Adelle Sans Devanagari", 1, 14)); // NOI18N
+        createBtn.setText("Create New XML File");
+        createBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createBtnActionPerformed(evt);
+            }
+        });
+
+        updateBtn.setFont(new java.awt.Font("Adelle Sans Devanagari", 1, 14)); // NOI18N
+        updateBtn.setText("Update XML");
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
+
+        clearBtn.setFont(new java.awt.Font("Adelle Sans Devanagari", 1, 14)); // NOI18N
+        clearBtn.setText("Clear");
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addComponent(titleLabel)
+                .addGap(26, 26, 26))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yearLabel)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(companyLabel2)
+                            .addComponent(styleLabel)
+                            .addComponent(companyLabel1)
+                            .addComponent(companyLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mileageTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(colourTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(styleTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(companyTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(yearTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(titleLabel)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yearTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yearLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(companyTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(companyLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(styleTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(styleLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(companyLabel1)
+                    .addComponent(colourTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mileageTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(companyLabel3))
+                .addGap(31, 31, 31)
+                .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    
+// Code for all buttons  
+
+// FOR GOING ABOVE AND BEYOND: I added extensive error checking with both
+// try-catch and if else blocks to prevent duplicate files from being created,
+// and from empty fields/improper input from being submitted. I also added
+// both error and success pop-ups, and formatted the output.    
+    
+// "Clear" button code
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {                                         
+       
+        // Just set all text boxes to empty strings
+        colourTxt.setText("");
+        companyTxt.setText("");
+        mileageTxt.setText("");
+        yearTxt.setText("");
+        styleTxt.setText("");
+       
+    }                                        
+
+    
+// "Create New XML File" button code
+    private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {                                          
+       
+        // If count is 0, meaning the file hasn't been created yet, the code
+        // proceeds
+        if(count == 0){
+            
+            // Take and store input values from text fields
+            String year = yearTxt.getText();
+            String company = companyTxt.getText();
+            String style = styleTxt.getText();
+            String colour = colourTxt.getText();
+            String mileage = mileageTxt.getText();
+            
+            // Error handling; check if any of the fields are empty
+            if (year.isEmpty() || company.isEmpty() || style.isEmpty() || colour.isEmpty() || mileage.isEmpty()) {
+                
+                // If any are empty, pop-up error message and exit the method
+                JOptionPane.showMessageDialog(null, "Please fill out all the fields.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; 
+            }
+            
+        // Error checking for Year and Mileage fields
+        try {
+            int yearValue = Integer.parseInt(year);
+            int mileageValue = Integer.parseInt(mileage);
+        
+            // Error checking for Company, Style, and Colour fields
+            if (!company.matches("[a-zA-Z]+") || !style.matches("[a-zA-Z]+") || !colour.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(null, "Company, Style, and Colour must contain only letters.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            // Add to count if it makes it past both error checks to indicate that
+            // the file has indeed been created
+            count = +1;
+            
+            // Try-catch to handle any errors
+            try {
+            
+                // Create XML document and elements
+                DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+                // Create the root element
+                Document doc = docBuilder.newDocument();
+                Element inventory = doc.createElement("Inventory");
+                doc.appendChild(inventory);
+
+                // Create the car element
+                Element car = doc.createElement("Car");
+                inventory.appendChild(car);
+
+                // Create the child elements and add them to the car element
+                Element yearElement = doc.createElement("Year");
+                yearElement.appendChild(doc.createTextNode(year));
+                car.appendChild(yearElement);
+
+                Element companyElement = doc.createElement("Company");
+                companyElement.appendChild(doc.createTextNode(company));
+                car.appendChild(companyElement);
+
+                Element styleElement = doc.createElement("Style");
+                styleElement.appendChild(doc.createTextNode(style));
+                car.appendChild(styleElement);
+
+                Element colourElement = doc.createElement("Colour");
+                colourElement.appendChild(doc.createTextNode(colour));
+                car.appendChild(colourElement);
+
+                Element mileageElement = doc.createElement("Mileage");
+                mileageElement.appendChild(doc.createTextNode(mileage));
+                car.appendChild(mileageElement);
+
+                // Write the XML content to a file
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                
+                // Format to make it pretty
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // Enable indentation
+                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); 
+                DOMSource source = new DOMSource(doc);
+                
+                // Name the file
+                StreamResult result = new StreamResult(new File("car.xml")); 
+                transformer.transform(source, result);
+
+                // If the process is successful, a pop-up comes telling user
+                // and all text fields are clear for further input
+                JOptionPane.showMessageDialog(null, "XML file created successfully!");
+                colourTxt.setText("");
+                companyTxt.setText("");
+                mileageTxt.setText("");
+                yearTxt.setText("");
+                styleTxt.setText("");
+            
+            // From example code; catches and handles errors
+            } catch (ParserConfigurationException | TransformerException e) {
+                e.printStackTrace();
+            } 
+            
+         } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Year and Mileage must be numeric values.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+          
+        // If the file has already been created, notifies the user, and doesn't
+        // create a new one
+        } else {
+            JOptionPane.showMessageDialog(null, "This XML file has already been created. Try updating the existing file with this new information.", "Error", JOptionPane.ERROR_MESSAGE);   
+        }
+      
+    }                                         
+
+    
+// "Update XML" button code
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {                                          
+      
+    // Try-catch to handle any errors    
+    try {
+        // Take and store input values from text fields
+        String year = yearTxt.getText();
+        String company = companyTxt.getText();
+        String style = styleTxt.getText();
+        String colour = colourTxt.getText();
+        String mileage = mileageTxt.getText();
+        
+        // Error handling; check if any of the fields are empty
+        if (year.isEmpty() || company.isEmpty() || style.isEmpty() || colour.isEmpty() || mileage.isEmpty()) {
+        
+        // If any are empty, pop-up error message and exit the method  
+        JOptionPane.showMessageDialog(null, "Please fill out all the fields.", "Error", JOptionPane.ERROR_MESSAGE);
+        return; // Exit the method if any field is empty
+    }
+
+        // Error checking for Year and Mileage fields
+        try {
+            int yearValue = Integer.parseInt(year);
+            int mileageValue = Integer.parseInt(mileage);
+        
+            // Error checking for Company, Style, and Colour fields
+            if (!company.matches("[a-zA-Z]+") || !style.matches("[a-zA-Z]+") || !colour.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(null, "Company, Style, and Colour must contain only letters.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+        // Load the existing XML file
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+        Document doc = docBuilder.parse(new File("car.xml"));
+
+        // Get the root element
+        Element inventory = doc.getDocumentElement();
+
+        // Create the car element
+        Element car = doc.createElement("Car");
+        inventory.appendChild(car);
+
+        // Create the child elements and add them to the car element
+        Element yearElement = doc.createElement("Year");
+        yearElement.appendChild(doc.createTextNode(year));
+        car.appendChild(yearElement);
+
+        Element companyElement = doc.createElement("Company");
+        companyElement.appendChild(doc.createTextNode(company));
+        car.appendChild(companyElement);
+
+        Element styleElement = doc.createElement("Style");
+        styleElement.appendChild(doc.createTextNode(style));
+        car.appendChild(styleElement);
+
+        Element colourElement = doc.createElement("Colour");
+        colourElement.appendChild(doc.createTextNode(colour));
+        car.appendChild(colourElement);
+
+        Element mileageElement = doc.createElement("Mileage");
+        mileageElement.appendChild(doc.createTextNode(mileage));
+        car.appendChild(mileageElement);
+
+        // Write the updated XML content back to the file
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        
+        // Formatting to make it pretty
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // Enable indentation
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); // Set indentation amount
+        DOMSource source = new DOMSource(doc);
+        
+        // Reaffirms pathway
+        StreamResult result = new StreamResult(new File("car.xml"));
+        transformer.transform(source, result);
+
+        // If the process is successful, a pop-up comes telling user and all 
+        // text fields are clear for further input
+        JOptionPane.showMessageDialog(null, "XML file updated successfully!");
+        colourTxt.setText("");
+        companyTxt.setText("");
+        mileageTxt.setText("");
+        yearTxt.setText("");
+        styleTxt.setText("");
+
+    // From example code; catches and handles errors    
+    } catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
+        e.printStackTrace();
+    }
+        
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Year and Mileage must be numeric values.", "Error", JOptionPane.ERROR_MESSAGE);
+     }
+        
+    }                                         
+
+    
+    // NetBeans generated code, @param args the command line arguments 
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(JavaXMLCars.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JavaXMLCars.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JavaXMLCars.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JavaXMLCars.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new JavaXMLCars().setVisible(true);
+            }
+        });
+    }
+
+    
+// NetBeans generated variables; not to be modfied  
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton clearBtn;
+    private javax.swing.JTextField colourTxt;
+    private javax.swing.JLabel companyLabel1;
+    private javax.swing.JLabel companyLabel2;
+    private javax.swing.JLabel companyLabel3;
+    private javax.swing.JTextField companyTxt;
+    private javax.swing.JButton createBtn;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField mileageTxt;
+    private javax.swing.JLabel styleLabel;
+    private javax.swing.JTextField styleTxt;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JButton updateBtn;
+    private javax.swing.JLabel yearLabel;
+    private javax.swing.JTextField yearTxt;
+    // End of variables declaration                   
+}
+
+
+// End of Code
